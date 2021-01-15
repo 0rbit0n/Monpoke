@@ -13,6 +13,9 @@ namespace Monpoke
                 throw new Exception("Game can't have more than 2 teams.");
 
             teams.Add(team);
+
+            if (currentTeam == null)
+                currentTeam = team;
         }
 
         public ITeam GetTeam(string teamId)
@@ -20,10 +23,30 @@ namespace Monpoke
             return teams.FirstOrDefault(t => t.Id == teamId);
         }
 
-        public void Run()
+        public ITeam GetCurrentTeam()
         {
+            return currentTeam;
+        }
+
+        public void MakeTurn(ICommand command)
+        {
+            command.Execute(this);
+
+            SwitchCurrentTeam();
+        }
+
+        private void SwitchCurrentTeam()
+        {
+            if (teams.Count != 2)
+                throw new Exception("Two teams must be set to play the game.");
+
+            if (currentTeam == teams[0])
+                currentTeam = teams[1];
+            else
+                currentTeam = teams[0];
         }
 
         private List<ITeam> teams = new List<ITeam>();
+        private ITeam currentTeam;
     }
 }

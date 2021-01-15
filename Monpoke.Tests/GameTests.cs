@@ -2,6 +2,7 @@ using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monpoke.Commands;
+using Moq;
 
 namespace Monpoke.Tests
 {
@@ -11,7 +12,6 @@ namespace Monpoke.Tests
         [TestMethod]
         public void CanAddTeam()
         {
-            var game = new Game();
             var team = new Team("MyTeam");
 
             game.AddTeam(team);
@@ -22,8 +22,6 @@ namespace Monpoke.Tests
         [TestMethod]
         public void CannotAddMoreThanTwoTeams()
         {
-            var game = new Game();
-
             Action forbiddenAction = () =>
             {
                 for (int i = 0; i < 3; i++)
@@ -33,6 +31,40 @@ namespace Monpoke.Tests
             forbiddenAction.Should().Throw<Exception>("Game can't have more than 2 teams.");
         }
 
+        [TestMethod]
+        public void CurrentTeamIsFirstAddedOneByDefault()
+        {
+            game.AddTeam(new Team("team1"));
+            game.AddTeam(new Team("team2"));
 
+            game.GetCurrentTeam().Id.Should().Be("team1");
+        }
+
+        [TestMethod]
+        public void CurrentTeamSwitchesOnTurn()
+        {
+            game.AddTeam(new Team("team1"));
+            game.AddTeam(new Team("team2"));
+
+            var emptyCommand = new Mock<ICommand>().Object;
+
+            game.MakeTurn(emptyCommand);
+
+            game.GetCurrentTeam().Id.Should().Be("team2");
+        }
+
+        [TestMethod]
+        public void CantMakeTurnIfTwoTeamsAreNotSet()
+        {
+            game.AddTeam(new Team("team1"));
+
+            var emptyCommand = new Mock<ICommand>().Object;
+
+            Action forbiddenTurn = () => game.MakeTurn(emptyCommand);
+
+            forbiddenTurn.Should().Throw<Exception>().WithMessage("Two teams must be set to play the game.");
+        }
+
+        IGame game = new Game();
     }
 }

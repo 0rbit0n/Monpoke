@@ -1,10 +1,12 @@
-﻿namespace Monpoke
+﻿using Monpoke.Commands;
+
+namespace Monpoke
 {
     public interface IGame
     {
         void AddTeam(ITeam team);
         ITeam GetTeam(string teamId);
-
-        void Run();
+        ITeam GetCurrentTeam();
+        void MakeTurn(ICommand emptyCommand);
     }
 }
