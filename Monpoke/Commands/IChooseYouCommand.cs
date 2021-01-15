@@ -9,7 +9,7 @@
 
         public void Execute(IGame game)
         {
-            throw new System.NotImplementedException();
+            game.GetCurrentTeam().SetCurrentMonpoke(monpokeId);
         }
 
         private readonly string monpokeId;

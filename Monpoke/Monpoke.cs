@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Monpoke
+﻿namespace Monpoke
 {
     public class Monpoke
     {
