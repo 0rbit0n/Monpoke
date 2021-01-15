@@ -21,7 +21,7 @@ namespace Monpoke.Commands
                 case "ICHOOSEYOU":
                     return BuildIChooseYouCommand(parameters);
                 default:
-                    return null;
+                    throw new Exception($"Unsupported command: '{command}'.");
             }
         }
 

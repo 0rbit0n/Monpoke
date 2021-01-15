@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monpoke.Commands;
 
 namespace Monpoke.Tests
@@ -37,6 +39,16 @@ namespace Monpoke.Tests
             var expectedCommand = new IChooseYouCommand("Meekachu");
 
             expectedCommand.ShouldHaveSameStateAs(actualCommand);
+        }
+
+        [TestMethod]
+        public void UnknownCommandThrowsException()
+        {
+            var factory = new CommandFactory();
+
+            Action createCommand = () => { factory.CreateCommand("UNKNOWN COMMAND"); };
+
+            createCommand.Should().Throw<Exception>().WithMessage("Unsupported command: 'UNKNOWN'.");
         }
     }
 }
