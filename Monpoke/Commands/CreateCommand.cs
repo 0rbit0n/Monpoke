@@ -10,6 +10,11 @@
             this.attack = attack;
         }
 
+        public void Execute(IGame game)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private string teamId;
         private string monpokeId;
         private int hp;
