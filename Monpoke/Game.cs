@@ -7,11 +7,6 @@ namespace Monpoke
 {
     public class Game : IGame
     {
-        public Game(ICommand[] commands)
-        {
-            this.commands = commands;
-        }
-
         public void AddTeam(ITeam team)
         {
             if (teams.Count == 2)
@@ -22,14 +17,13 @@ namespace Monpoke
 
         public ITeam GetTeam(string teamId)
         {
-            return teams.First(t => t.Id == teamId);
+            return teams.FirstOrDefault(t => t.Id == teamId);
         }
 
         public void Run()
         {
         }
 
-        private ICommand[] commands;
         private List<ITeam> teams = new List<ITeam>();
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monpoke.Commands;
@@ -10,22 +9,9 @@ namespace Monpoke.Tests
     public class GameTests
     {
         [TestMethod]
-        public void CanCreateGame()
-        {
-            new Game(Array.Empty<ICommand>());
-        }
-
-        [TestMethod]
-        public void GameWithoutCommandsJustExist()
-        {
-            var game = new Game(Array.Empty<ICommand>());
-            game.Run();
-        }
-
-        [TestMethod]
         public void CanAddTeam()
         {
-            var game = new Game(Array.Empty<ICommand>());
+            var game = new Game();
             var team = new Team("MyTeam");
 
             game.AddTeam(team);
@@ -36,7 +22,7 @@ namespace Monpoke.Tests
         [TestMethod]
         public void CannotAddMoreThanTwoTeams()
         {
-            var game = new Game(Array.Empty<ICommand>());
+            var game = new Game();
 
             Action forbiddenAction = () =>
             {
@@ -46,5 +32,7 @@ namespace Monpoke.Tests
 
             forbiddenAction.Should().Throw<Exception>("Game can't have more than 2 teams.");
         }
+
+
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Monpoke.Commands
+﻿using System;
+
+namespace Monpoke.Commands
 {
     public class CreateCommand : ICommand
     {
@@ -12,7 +14,19 @@
 
         public void Execute(IGame game)
         {
-            throw new System.NotImplementedException();
+            var team = game.GetTeam(teamId);
+
+            if (team == null)
+                team = new Team(teamId);
+
+            var monpoke = new Monpoke(monpokeId, hp, attack);
+
+            var monpokeExists = team.GetMonpoke(monpokeId) != null;
+            if (monpokeExists)
+                throw new Exception($"Can't add monpoke '{monpokeId}' because it already exists.");
+
+            team.AddMonpoke(monpoke);
+            game.AddTeam(team);
         }
 
         private string teamId;
