@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using KellermanSoftware.CompareNetObjects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Monpoke.Commands;
 
 namespace Monpoke.Tests
@@ -24,7 +22,19 @@ namespace Monpoke.Tests
         {
             var factory = new CommandFactory();
             var actualCommand = factory.CreateCommand("ATTACK");
+
             var expectedCommand = new AttackCommand();
+
+            expectedCommand.ShouldHaveSameStateAs(actualCommand);
+        }
+
+        [TestMethod]
+        public void CanCreateIChooseYouCommand()
+        {
+            var factory = new CommandFactory();
+            var actualCommand = factory.CreateCommand("ICHOOSEYOU Meekachu");
+
+            var expectedCommand = new IChooseYouCommand("Meekachu");
 
             expectedCommand.ShouldHaveSameStateAs(actualCommand);
         }

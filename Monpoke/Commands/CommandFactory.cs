@@ -18,6 +18,8 @@ namespace Monpoke.Commands
                     return BuildCreateCommand(parameters);
                 case "ATTACK":
                     return BuildAttachCommand();
+                case "ICHOOSEYOU":
+                    return BuildIChooseYouCommand(parameters);
                 default:
                     return null;
             }
@@ -38,5 +40,11 @@ namespace Monpoke.Commands
             return new AttackCommand();
         }
 
+        private ICommand BuildIChooseYouCommand(string[] parameters)
+        {
+            var monpokeId = parameters[0];
+
+            return new IChooseYouCommand(monpokeId);
+        }
     }
 }
