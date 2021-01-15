@@ -1,4 +1,5 @@
 ﻿using Monpoke.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +14,9 @@ namespace Monpoke
 
         public void AddTeam(ITeam team)
         {
+            if (teams.Count == 2)
+                throw new Exception("Game can't have more than 2 teams.");
+
             teams.Add(team);
         }
 
