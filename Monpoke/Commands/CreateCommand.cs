@@ -1,6 +1,6 @@
-﻿namespace Monpoke
+﻿namespace Monpoke.Commands
 {
-    public class CreateCommand
+    public class CreateCommand : ICommand
     {
         public CreateCommand(string teamId, string monpokeId, int hp, int attack)
         {

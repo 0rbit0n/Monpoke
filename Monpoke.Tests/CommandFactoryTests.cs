@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using KellermanSoftware.CompareNetObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Monpoke.Commands;
 
 namespace Monpoke.Tests
 {
@@ -15,17 +16,17 @@ namespace Monpoke.Tests
 
             var expectedCommand = new CreateCommand(teamId: "Rocket", monpokeId: "Meekachu", hp: 3, attack: 1);
 
-            var comparer = new CompareLogic() 
-            {
-                Config = new ComparisonConfig 
-                { 
-                    MaxDifferences = int.MaxValue, 
-                    ComparePrivateFields = true 
-                } 
-            };
-
-            var comparisonResults = comparer.Compare(expectedCommand, actualCommand);
-            comparisonResults.AreEqual.Should().BeTrue(because: comparisonResults.DifferencesString);
+            expectedCommand.ShouldHaveSameStateAs(actualCommand);
         } 
+
+        [TestMethod]
+        public void CanCreateAttackCommand()
+        {
+            var factory = new CommandFactory();
+            var actualCommand = factory.CreateCommand("ATTACK");
+            var expectedCommand = new AttackCommand();
+
+            expectedCommand.ShouldHaveSameStateAs(actualCommand);
+        }
     }
 }
