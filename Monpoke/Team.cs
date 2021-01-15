@@ -41,6 +41,11 @@ namespace Monpoke
             currentMonpoke = monpoke;
         }
 
+        public bool HasAliveMonpoke()
+        {
+            return monpokes.Any(m => m.IsAlive());
+        }
+
         private List<Monpoke> monpokes = new List<Monpoke>();
         private Monpoke currentMonpoke;
     }

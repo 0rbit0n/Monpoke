@@ -65,6 +65,20 @@ namespace Monpoke.Tests
             forbiddenTurn.Should().Throw<Exception>().WithMessage("Two teams must be set to play the game.");
         }
 
+        [TestMethod]
+        public void TeamCanCheckForAliveMonpokes()
+        {
+            var team = new Team("team");
+            var monpoke = new Monpoke("monpoke", 1, 1);
+            monpoke.Damage(1);
+
+            var deadMonpoke = monpoke;
+
+            team.AddMonpoke(deadMonpoke);
+
+            team.HasAliveMonpoke().Should().BeFalse();
+        }
+
         IGame game = new Game();
     }
 }
