@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Monpoke.Tests
 {
@@ -12,6 +13,26 @@ namespace Monpoke.Tests
             var monpoke = new Monpoke("monpoke", 1, 1);
 
             monpoke.Id.Should().Be("monpoke");
+        }
+
+        [TestMethod]
+        public void MonpokeMustHave1HPOrGreater()
+        {
+            var hitPoints = 0;
+
+            Action createMonpoke = () => new Monpoke("monpoke", hitPoints: hitPoints, attackPower: 100);
+
+            createMonpoke.Should().Throw<ArgumentException>().WithMessage("Monpoke must have 1 HP or greater (Parameter 'hitPoints')");
+        }
+
+        [TestMethod]
+        public void MonpokeMustHave1APOrGreater()
+        {
+            var attackPower = 0;
+
+            Action createMonpoke = () => new Monpoke("monpoke", hitPoints: 1, attackPower: attackPower);
+
+            createMonpoke.Should().Throw<ArgumentException>().WithMessage("Monpoke must have 1 AP or greater (Parameter 'attackPower')");
         }
 
         [DataTestMethod]

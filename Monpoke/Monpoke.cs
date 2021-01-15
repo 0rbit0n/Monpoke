@@ -1,9 +1,17 @@
-﻿namespace Monpoke
+﻿using System;
+
+namespace Monpoke
 {
     public class Monpoke
     {
         public Monpoke(string id, int hitPoints, int attackPower)
         {
+            if (hitPoints < 1)
+                throw new ArgumentException("Monpoke must have 1 HP or greater", nameof(hitPoints));
+
+            if (attackPower < 1)
+                throw new ArgumentException("Monpoke must have 1 AP or greater", nameof(attackPower));
+
             this.Id = id;
             this.hitPoints = hitPoints;
             this.attackPower = attackPower;
