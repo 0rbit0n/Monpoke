@@ -25,5 +25,11 @@ namespace Monpoke.Tests
 
             team.GetCurrentMonpoke().Should().Be(monpoke);
         }
+
+        [TestMethod]
+        public void IChooseYouCommandIsTurnCommand()
+        {
+            new IChooseYouCommand("mon").IsTurnCommand().Should().BeTrue();
+        }
     }
 }

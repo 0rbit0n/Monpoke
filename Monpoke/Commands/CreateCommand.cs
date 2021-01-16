@@ -17,7 +17,10 @@ namespace Monpoke.Commands
             var team = game.GetTeam(teamId);
 
             if (team == null)
+            {
                 team = new Team(teamId);
+                game.AddTeam(team);
+            }
 
             var monpoke = new Monpoke(monpokeId, hp, attack);
 
@@ -26,7 +29,11 @@ namespace Monpoke.Commands
                 throw new Exception($"Can't add monpoke '{monpokeId}' because it already exists.");
 
             team.AddMonpoke(monpoke);
-            game.AddTeam(team);
+        }
+
+        public bool IsTurnCommand()
+        {
+            return false;
         }
 
         private string teamId;

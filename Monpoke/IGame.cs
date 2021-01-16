@@ -7,6 +7,7 @@ namespace Monpoke
         void AddTeam(ITeam team);
         ITeam GetTeam(string teamId);
         ITeam GetCurrentTeam();
+        ITeam GetWaitingTeam();
         void MakeTurn(ICommand emptyCommand);
     }
 }

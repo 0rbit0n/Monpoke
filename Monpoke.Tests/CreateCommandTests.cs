@@ -50,6 +50,12 @@ namespace Monpoke.Tests
             existingTeam.GetMonpoke("monpoke2").Id.Should().Be("monpoke2");
         }
 
+        [TestMethod]
+        public void CreateCommandIsNotTurnCommand()
+        {
+            new CreateCommand("team", "monpoke", 1, 1).IsTurnCommand().Should().BeFalse();
+        }
+
         Game game;
         CreateCommand createCommand;
     }

@@ -32,7 +32,8 @@ namespace Monpoke
         {
             command.Execute(this);
 
-            SwitchCurrentTeam();
+            if(command.IsTurnCommand())
+                SwitchCurrentTeam();
         }
 
         private void SwitchCurrentTeam()
@@ -44,6 +45,14 @@ namespace Monpoke
                 currentTeam = teams[1];
             else
                 currentTeam = teams[0];
+        }
+
+        public ITeam GetWaitingTeam()
+        {
+            if (currentTeam == teams[0])
+                return teams[1];
+            else
+                return teams[2];
         }
 
         private List<ITeam> teams = new List<ITeam>();

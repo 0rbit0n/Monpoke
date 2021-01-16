@@ -41,14 +41,24 @@ namespace Monpoke.Tests
         }
 
         [TestMethod]
+        public void OppositeTeamIsCorrect()
+        {
+            game.AddTeam(new Team("team1"));
+            game.AddTeam(new Team("team2"));
+
+            game.GetWaitingTeam().Id.Should().Be("team2");
+        }
+
+        [TestMethod]
         public void CurrentTeamSwitchesOnTurn()
         {
             game.AddTeam(new Team("team1"));
             game.AddTeam(new Team("team2"));
 
-            var emptyCommand = new Mock<ICommand>().Object;
+            var emptyCommand = new Mock<ICommand>();
+            emptyCommand.Setup(c => c.IsTurnCommand()).Returns(true);
 
-            game.MakeTurn(emptyCommand);
+            game.MakeTurn(emptyCommand.Object);
 
             game.GetCurrentTeam().Id.Should().Be("team2");
         }
@@ -58,9 +68,10 @@ namespace Monpoke.Tests
         {
             game.AddTeam(new Team("team1"));
 
-            var emptyCommand = new Mock<ICommand>().Object;
+            var emptyCommand = new Mock<ICommand>();
+            emptyCommand.Setup(c => c.IsTurnCommand()).Returns(true);
 
-            Action forbiddenTurn = () => game.MakeTurn(emptyCommand);
+            Action forbiddenTurn = () => game.MakeTurn(emptyCommand.Object);
 
             forbiddenTurn.Should().Throw<Exception>().WithMessage("Two teams must be set to play the game.");
         }

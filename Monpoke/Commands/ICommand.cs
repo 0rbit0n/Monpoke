@@ -3,5 +3,6 @@
     public interface ICommand
     {
         void Execute(IGame game);
+        bool IsTurnCommand();
     }
 }

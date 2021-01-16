@@ -12,6 +12,11 @@
             game.GetCurrentTeam().SetCurrentMonpoke(monpokeId);
         }
 
+        public bool IsTurnCommand()
+        {
+            return true;
+        }
+
         private readonly string monpokeId;
     }
 }
