@@ -1,6 +1,6 @@
 ﻿namespace Monpoke
 {
-    interface IOutput
+    public interface IOutput
     {
         public void WriteLine(string message);
     }

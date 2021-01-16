@@ -12,7 +12,8 @@ namespace Monpoke.Tests
         public void ArrangeAct()
         {
             game = new Game();
-            createCommand = new CreateCommand("team", "monpoke", 1, 1);
+            output = new StringOutput();
+            createCommand = new CreateCommand(output, "team", "monpoke", 1, 1);
 
             createCommand.Execute(game);
         }
@@ -44,19 +45,20 @@ namespace Monpoke.Tests
         {
             var existingTeam = game.GetTeam("team");
 
-            var newMonpokeCommand = new CreateCommand("team", "monpoke2", 2, 2);
+            var newMonpokeCommand = new CreateCommand(new StringOutput(), "team", "monpoke2", 2, 2);
             newMonpokeCommand.Execute(game);
 
             existingTeam.GetMonpoke("monpoke2").Id.Should().Be("monpoke2");
         }
 
         [TestMethod]
-        public void CreateCommandIsNotTurnCommand()
+        public void CreateCommandPrintsCorrectOutput()
         {
-            new CreateCommand("team", "monpoke", 1, 1).IsTurnCommand().Should().BeFalse();
+            output.GetText().Should().Be("monpoke has been assigned to team team!\r\n");
         }
 
         Game game;
         CreateCommand createCommand;
+        StringOutput output;
     }
 }

@@ -19,6 +19,11 @@ namespace Monpoke
 
         public string Id { get; }
 
+        public int GetAttackPower()
+        {
+            return attackPower;
+        }
+
         public void Damage(int damage)
         {
             hitPoints -= damage;

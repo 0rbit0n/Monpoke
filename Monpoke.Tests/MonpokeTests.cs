@@ -35,6 +35,15 @@ namespace Monpoke.Tests
             createMonpoke.Should().Throw<ArgumentException>().WithMessage("Monpoke must have 1 AP or greater (Parameter 'attackPower')");
         }
 
+        [TestMethod]
+        public void AttackPowerIsCorrect()
+        {
+            var attackPower = 10;
+            var monpoke = new Monpoke("monpoke", hitPoints: 10, attackPower: attackPower);
+
+            monpoke.GetAttackPower().Should().Be(attackPower);
+        }
+
         [DataTestMethod]
         [DataRow(5, 3, true,  DisplayName = "Monpoke damaged slightly is alive")]
         [DataRow(5, 5, false, DisplayName = "Monpoke damaged hard enough is dead")]

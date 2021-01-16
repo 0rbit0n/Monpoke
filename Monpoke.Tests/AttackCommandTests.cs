@@ -7,25 +7,33 @@ namespace Monpoke.Tests
     [TestClass]
     public class AttackCommandTests
     {
+        [TestInitialize]
+        public void ArrangeAct()
+        {
+            game = new Game();
+
+            game.MakeTurn(new CreateCommand(new StringOutput(), "Team1", "Monpoke1", hp: 5, attack: 5));
+            game.MakeTurn(new CreateCommand(new StringOutput(), "Team2", "Monpoke2", hp: 5, attack: 5));
+            game.MakeTurn(new IChooseYouCommand(new StringOutput(), "Monpoke1"));
+            game.MakeTurn(new IChooseYouCommand(new StringOutput(), "Monpoke2"));
+
+            output = new StringOutput();
+            game.MakeTurn(new AttackCommand(output));
+        }
+
         [TestMethod]
         public void CanKillVictimMonpoke()
         {
-            var game = new Game();
-
-            game.MakeTurn(new CreateCommand("Team1", "Monpoke1", hp: 5, attack: 5));
-            game.MakeTurn(new CreateCommand("Team2", "Monpoke2", hp: 5, attack: 5));
-            game.MakeTurn(new IChooseYouCommand("Monpoke1"));
-            game.MakeTurn(new IChooseYouCommand("Monpoke2"));
-
-            game.MakeTurn(new AttackCommand());
-
             game.GetTeam("Team2").HasAliveMonpoke().Should().BeFalse();
         }
 
         [TestMethod]
-        public void AttackCommandIsTurnCommand()
+        public void AttackCommandPrintsCorrectOutput()
         {
-            new AttackCommand().IsTurnCommand().Should().BeTrue();
+            output.GetText().Should().Be("Monpoke1 attacked Monpoke2 for 5 damage!\r\n");
         }
+
+        Game game;
+        StringOutput output;
     }
 }

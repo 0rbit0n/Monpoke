@@ -5,6 +5,11 @@ namespace Monpoke.Commands
 {
     public class CommandFactory
     {
+        public CommandFactory(IOutput output)
+        {
+            this.output = output;
+        }
+
         public ICommand CreateCommand(string commandText)
         {
             var tokens = commandText.Split(' ').ToArray();
@@ -32,19 +37,21 @@ namespace Monpoke.Commands
             var hp = Convert.ToInt32(parameters[2]);
             var attack = Convert.ToInt32(parameters[3]);
 
-            return new CreateCommand(teamId, monpokeId, hp, attack);
+            return new CreateCommand(output, teamId, monpokeId, hp, attack);
         }
 
         private ICommand BuildAttachCommand()
         {
-            return new AttackCommand();
+            return new AttackCommand(output);
         }
 
         private ICommand BuildIChooseYouCommand(string[] parameters)
         {
             var monpokeId = parameters[0];
 
-            return new IChooseYouCommand(monpokeId);
+            return new IChooseYouCommand(output, monpokeId);
         }
+
+        private readonly IOutput output;
     }
 }

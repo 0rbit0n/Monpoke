@@ -7,29 +7,38 @@ namespace Monpoke.Tests
     [TestClass]
     public class IChooseYouCommandTests
     {
-        [TestMethod]
-        public void IChooseYouSetsCurrentMonpoke()
+        [TestInitialize]
+        public void ArrangeAct()
         {
             var game = new Game();
-            var team = new Team("team");
+            team = new Team("team");
 
-            var monpoke = new Monpoke("monpoke1", 1, 1);
+            monpoke = new Monpoke("monpoke1", 1, 1);
 
             team.AddMonpoke(monpoke);
 
             game.AddTeam(team);
 
-            var chooseMonpokeCommand = new IChooseYouCommand(monpoke.Id);
+            output = new StringOutput();
+            var chooseMonpokeCommand = new IChooseYouCommand(output, monpoke.Id);
 
             chooseMonpokeCommand.Execute(game);
+        }
 
+        [TestMethod]
+        public void IChooseYouSetsCurrentMonpoke()
+        {
             team.GetCurrentMonpoke().Should().Be(monpoke);
         }
 
         [TestMethod]
-        public void IChooseYouCommandIsTurnCommand()
+        public void IChooseYouCommandPrintsCorrectOutput()
         {
-            new IChooseYouCommand("mon").IsTurnCommand().Should().BeTrue();
+            output.GetText().Should().Be("monpoke1 has entered the battle!\r\n");
         }
+
+        ITeam team;
+        Monpoke monpoke;
+        StringOutput output;
     }
 }

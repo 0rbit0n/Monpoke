@@ -11,10 +11,10 @@ namespace Monpoke.Tests
         [TestMethod]
         public void CanCreateCreateCommand()
         {
-            var factory = new CommandFactory();
+            var factory = new CommandFactory(new StringOutput());
             var actualCommand = factory.CreateCommand("CREATE Rocket Meekachu 3 1");
 
-            var expectedCommand = new CreateCommand(teamId: "Rocket", monpokeId: "Meekachu", hp: 3, attack: 1);
+            var expectedCommand = new CreateCommand(new StringOutput(), teamId: "Rocket", monpokeId: "Meekachu", hp: 3, attack: 1);
 
             expectedCommand.ShouldHaveSameStateAs(actualCommand);
         } 
@@ -22,10 +22,10 @@ namespace Monpoke.Tests
         [TestMethod]
         public void CanCreateAttackCommand()
         {
-            var factory = new CommandFactory();
+            var factory = new CommandFactory(new StringOutput());
             var actualCommand = factory.CreateCommand("ATTACK");
 
-            var expectedCommand = new AttackCommand();
+            var expectedCommand = new AttackCommand(new StringOutput());
 
             expectedCommand.ShouldHaveSameStateAs(actualCommand);
         }
@@ -33,10 +33,11 @@ namespace Monpoke.Tests
         [TestMethod]
         public void CanCreateIChooseYouCommand()
         {
-            var factory = new CommandFactory();
-            var actualCommand = factory.CreateCommand("ICHOOSEYOU Meekachu");
+            var output = new StringOutput();
+            var factory = new CommandFactory(output);
 
-            var expectedCommand = new IChooseYouCommand("Meekachu");
+            var actualCommand = factory.CreateCommand("ICHOOSEYOU Meekachu");
+            var expectedCommand = new IChooseYouCommand(output, "Meekachu");
 
             expectedCommand.ShouldHaveSameStateAs(actualCommand);
         }
@@ -44,7 +45,7 @@ namespace Monpoke.Tests
         [TestMethod]
         public void UnknownCommandThrowsException()
         {
-            var factory = new CommandFactory();
+            var factory = new CommandFactory(new StringOutput());
 
             Action createCommand = () => { factory.CreateCommand("UNKNOWN COMMAND"); };
 
