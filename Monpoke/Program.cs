@@ -17,8 +17,9 @@ namespace Monpoke
             var output = new Output();
             var commandFactory = new CommandFactory(output);
             var game = new Game(output);
+            var environment = new Environment();
 
-            var controller = new GameController(inputReader, commandFactory, game);
+            var controller = new GameController(environment, inputReader, commandFactory, game);
 
             controller.PlayGame();
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Monpoke
 {
@@ -8,10 +7,9 @@ namespace Monpoke
 
         public string[] ReadInput()
         {
-
             return System.Console.In
                          .ReadToEnd()
-                         .Split(Environment.NewLine)
+                         .Split(System.Environment.NewLine)
                          .Where(l => !string.IsNullOrWhiteSpace(l))
                          .ToArray();
         }

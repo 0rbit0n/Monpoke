@@ -30,8 +30,9 @@ namespace Monpoke.Tests
             var inputReader = new FileInputReader(fileName);
             var commandFactory = new CommandFactory(output);
             var game = new Game(output);
+            var environment = new TestEnvironment();
 
-            var controller = new GameController(inputReader, commandFactory, game);
+            var controller = new GameController(environment, inputReader, commandFactory, game);
 
             controller.PlayGame();
 
@@ -52,6 +53,18 @@ namespace Monpoke.Tests
                                  "Rocket is the winner!\r\n";
 
             expectedOutput.Should().Be(actualOutput);
+        }
+
+        [TestMethod]
+        public void AnyExceptionInControllerExistWithCode1()
+        {
+            var environment = new TestEnvironment();
+
+            var controller = new GameController(environment, null, null, null);
+
+            controller.PlayGame();
+
+            environment.ExitedCode.Should().Be(1);
         }
     }
 }
