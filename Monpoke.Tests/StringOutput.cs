@@ -14,6 +14,11 @@ namespace Monpoke.Tests
             return builder.ToString();
         }
 
+        public void Clear()
+        {
+            builder.Clear();
+        }
+
         StringBuilder builder = new StringBuilder();
     }
 }

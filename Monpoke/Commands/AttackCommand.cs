@@ -19,6 +19,11 @@
 
             var message = $"{attacker.Id} attacked {victim.Id} for {attacker.GetAttackPower()} damage!";
             output.WriteLine(message);
+
+            if (!victim.IsAlive())
+            {
+                output.WriteLine($"{victim.Id} has been defeated!");
+            }
         }
 
         public bool IsTurnCommand()

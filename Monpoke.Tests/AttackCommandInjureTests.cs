@@ -5,14 +5,14 @@ using Monpoke.Commands;
 namespace Monpoke.Tests
 {
     [TestClass]
-    public class AttackCommandTests
+    public class AttackCommandInjureTests
     {
         [TestInitialize]
         public void ArrangeAct()
         {
             game = new Game();
 
-            game.RunCommand(new CreateCommand(new StringOutput(), "Team1", "Monpoke1", hp: 5, attack: 5));
+            game.RunCommand(new CreateCommand(new StringOutput(), "Team1", "Monpoke1", hp: 5, attack: 4));
             game.RunCommand(new CreateCommand(new StringOutput(), "Team2", "Monpoke2", hp: 5, attack: 5));
             game.RunCommand(new IChooseYouCommand(new StringOutput(), "Monpoke1"));
             game.RunCommand(new IChooseYouCommand(new StringOutput(), "Monpoke2"));
@@ -22,15 +22,15 @@ namespace Monpoke.Tests
         }
 
         [TestMethod]
-        public void CanKillVictimMonpoke()
+        public void MonpokeIsStillAlive()
         {
-            game.GetTeam("Team2").HasAliveMonpoke().Should().BeFalse();
+            game.GetTeam("Team2").HasAliveMonpoke().Should().BeTrue();
         }
 
         [TestMethod]
         public void AttackCommandPrintsCorrectOutput()
         {
-            output.GetText().Should().Be("Monpoke1 attacked Monpoke2 for 5 damage!\r\n");
+            output.GetText().Should().Be("Monpoke1 attacked Monpoke2 for 4 damage!\r\n");
         }
 
         Game game;
