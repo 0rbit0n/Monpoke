@@ -90,6 +90,12 @@ namespace Monpoke.Tests
             team.HasAliveMonpoke().Should().BeFalse();
         }
 
+        [TestMethod]
+        public void UnfinishedGameIsNotOver()
+        {
+            game.IsOver().Should().BeFalse();
+        }
+
         IGame game = new Game();
     }
 }

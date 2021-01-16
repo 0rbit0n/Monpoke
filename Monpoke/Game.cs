@@ -55,6 +55,11 @@ namespace Monpoke
                 return teams[2];
         }
 
+        public bool IsOver()
+        {
+            return teams.Any(t => !t.HasAliveMonpoke());
+        }
+
         private List<ITeam> teams = new List<ITeam>();
         private ITeam currentTeam;
     }
