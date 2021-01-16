@@ -10,7 +10,7 @@ namespace Monpoke.Tests
         [TestInitialize]
         public void ArrangeAct()
         {
-            var game = new Game();
+            var game = new Game(new StringOutput());
             team = new Team("team");
 
             monpoke = new Monpoke("monpoke1", 1, 1);

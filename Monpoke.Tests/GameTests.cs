@@ -96,6 +96,6 @@ namespace Monpoke.Tests
             game.IsOver().Should().BeFalse();
         }
 
-        IGame game = new Game();
+        IGame game = new Game(new StringOutput());
     }
 }

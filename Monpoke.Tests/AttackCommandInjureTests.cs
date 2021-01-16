@@ -10,7 +10,7 @@ namespace Monpoke.Tests
         [TestInitialize]
         public void ArrangeAct()
         {
-            game = new Game();
+            game = new Game(new StringOutput());
 
             game.RunCommand(new CreateCommand(new StringOutput(), "Team1", "Monpoke1", hp: 5, attack: 4));
             game.RunCommand(new CreateCommand(new StringOutput(), "Team2", "Monpoke2", hp: 5, attack: 5));

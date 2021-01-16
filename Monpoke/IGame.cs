@@ -10,5 +10,6 @@ namespace Monpoke
         ITeam GetWaitingTeam();
         void RunCommand(ICommand emptyCommand);
         bool IsOver();
+        void OutputWinner();
     }
 }

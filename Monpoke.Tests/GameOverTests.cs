@@ -9,6 +9,9 @@ namespace Monpoke.Tests
         [TestInitialize]
         public void ArrangeAct()
         {
+            output = new StringOutput();
+            game = new Game(output);
+
             var team1 = new Team("team1");
             var monpoke1 = new Monpoke("monpoke1", 1, 1);
             team1.AddMonpoke(monpoke1);
@@ -29,6 +32,16 @@ namespace Monpoke.Tests
             game.IsOver().Should().BeTrue();
         }
 
-        IGame game = new Game();
+        [TestMethod]
+        public void GameCanPrintsWinner()
+        {
+            output.Clear();
+            game.OutputWinner();
+
+            output.GetText().Should().Be("team1 is the winner!\r\n");
+        }
+
+        StringOutput output;
+        IGame game;
     }
 }

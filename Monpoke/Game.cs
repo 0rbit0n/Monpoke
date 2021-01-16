@@ -7,6 +7,11 @@ namespace Monpoke
 {
     public class Game : IGame
     {
+        public Game(IOutput output)
+        {
+            this.output = output;
+        }
+
         public void AddTeam(ITeam team)
         {
             if (teams.Count == 2)
@@ -60,7 +65,25 @@ namespace Monpoke
             return teams.Any(t => !t.HasAliveMonpoke());
         }
 
+        public void OutputWinner()
+        {
+            if (!IsOver())
+                return;
+
+            var message = $"{GetWinner().Id} is the winner!";
+            output.WriteLine(message);
+        }
+
+        private ITeam GetWinner()
+        {
+            if (!IsOver())
+                return null;
+
+            return teams.FirstOrDefault(t => t.HasAliveMonpoke());
+        }
+
         private List<ITeam> teams = new List<ITeam>();
         private ITeam currentTeam;
+        private IOutput output;
     }
 }

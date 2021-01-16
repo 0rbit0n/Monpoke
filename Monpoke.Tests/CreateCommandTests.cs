@@ -11,8 +11,9 @@ namespace Monpoke.Tests
         [TestInitialize]
         public void ArrangeAct()
         {
-            game = new Game();
             output = new StringOutput();
+
+            game = new Game(output);
             createCommand = new CreateCommand(output, "team", "monpoke", 1, 1);
 
             createCommand.Execute(game);
