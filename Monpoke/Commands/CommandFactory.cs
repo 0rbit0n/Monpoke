@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Monpoke.Commands
 {
-    public class CommandFactory
+    public class CommandFactory : ICommandFactory
     {
         public CommandFactory(IOutput output)
         {

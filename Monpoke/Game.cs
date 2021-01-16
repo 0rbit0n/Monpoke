@@ -57,7 +57,7 @@ namespace Monpoke
             if (currentTeam == teams[0])
                 return teams[1];
             else
-                return teams[2];
+                return teams[0];
         }
 
         public bool IsOver()
