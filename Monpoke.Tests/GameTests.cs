@@ -58,7 +58,7 @@ namespace Monpoke.Tests
             var emptyCommand = new Mock<ICommand>();
             emptyCommand.Setup(c => c.IsTurnCommand()).Returns(true);
 
-            game.MakeTurn(emptyCommand.Object);
+            game.RunCommand(emptyCommand.Object);
 
             game.GetCurrentTeam().Id.Should().Be("team2");
         }
@@ -71,7 +71,7 @@ namespace Monpoke.Tests
             var emptyCommand = new Mock<ICommand>();
             emptyCommand.Setup(c => c.IsTurnCommand()).Returns(true);
 
-            Action forbiddenTurn = () => game.MakeTurn(emptyCommand.Object);
+            Action forbiddenTurn = () => game.RunCommand(emptyCommand.Object);
 
             forbiddenTurn.Should().Throw<Exception>().WithMessage("Two teams must be set to play the game.");
         }

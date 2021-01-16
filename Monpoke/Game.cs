@@ -28,7 +28,7 @@ namespace Monpoke
             return currentTeam;
         }
 
-        public void MakeTurn(ICommand command)
+        public void RunCommand(ICommand command)
         {
             command.Execute(this);
 

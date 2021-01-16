@@ -12,13 +12,13 @@ namespace Monpoke.Tests
         {
             game = new Game();
 
-            game.MakeTurn(new CreateCommand(new StringOutput(), "Team1", "Monpoke1", hp: 5, attack: 5));
-            game.MakeTurn(new CreateCommand(new StringOutput(), "Team2", "Monpoke2", hp: 5, attack: 5));
-            game.MakeTurn(new IChooseYouCommand(new StringOutput(), "Monpoke1"));
-            game.MakeTurn(new IChooseYouCommand(new StringOutput(), "Monpoke2"));
+            game.RunCommand(new CreateCommand(new StringOutput(), "Team1", "Monpoke1", hp: 5, attack: 5));
+            game.RunCommand(new CreateCommand(new StringOutput(), "Team2", "Monpoke2", hp: 5, attack: 5));
+            game.RunCommand(new IChooseYouCommand(new StringOutput(), "Monpoke1"));
+            game.RunCommand(new IChooseYouCommand(new StringOutput(), "Monpoke2"));
 
             output = new StringOutput();
-            game.MakeTurn(new AttackCommand(output));
+            game.RunCommand(new AttackCommand(output));
         }
 
         [TestMethod]
