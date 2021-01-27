@@ -25,9 +25,18 @@ namespace Monpoke.Commands
                     return BuildAttachCommand();
                 case "ICHOOSEYOU":
                     return BuildIChooseYouCommand(parameters);
+                case "HEAL":
+                    return BuildHealCommand(parameters);
                 default:
                     throw new Exception($"Unsupported command: '{command}'.");
             }
+        }
+
+        private ICommand BuildHealCommand(string[] parameters)
+        {
+            var healAmount = Convert.ToInt32(parameters[0]);
+
+            return new HealCommand(output, healAmount);
         }
 
         private ICommand BuildCreateCommand(string[] parameters)

@@ -43,6 +43,18 @@ namespace Monpoke.Tests
         }
 
         [TestMethod]
+        public void CanCreateHealCommand()
+        {
+            var output = new StringOutput();
+            var factory = new CommandFactory(output);
+
+            var actualCommand = factory.CreateCommand("HEAL 5");
+            var expectedCommand = new HealCommand(output, 5);
+
+            expectedCommand.ShouldHaveSameStateAs(actualCommand);
+        }
+
+        [TestMethod]
         public void UnknownCommandThrowsException()
         {
             var factory = new CommandFactory(new StringOutput());
