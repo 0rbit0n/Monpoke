@@ -36,6 +36,22 @@ namespace Monpoke.Tests
         }
 
         [TestMethod]
+        public void MonpokeCanHealHealth()
+        {
+            var hitPoint = 10;
+            var monpoke = new Monpoke("monpoke", hitPoints: hitPoint, attackPower: 5);
+            monpoke.Damage(9);
+            monpoke.Heal(5);
+
+            var expectedMonpoke = new Monpoke("monpoke", hitPoints: 10 - 9 + 5, attackPower: 5);
+            expectedMonpoke.SetField("originalHitPoints", 10);
+
+            var actualMonpoke = monpoke;
+
+            actualMonpoke.ShouldHaveSameStateAs(expectedMonpoke);
+        }
+
+        [TestMethod]
         public void AttackPowerIsCorrect()
         {
             var attackPower = 10;

@@ -4,21 +4,23 @@
     {
         public HealCommand(IOutput output, int healAMount)
         {
-            this.healAMount = healAMount;
+            this.healAmount = healAMount;
             this.output = output;
         }
 
         public void Execute(IGame game)
         {
-            throw new System.NotImplementedException();
+            var monpoke = game.GetCurrentTeam().GetCurrentMonpoke();
+
+            monpoke.Heal(healAmount);
         }
 
         public bool IsTurnCommand()
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         private IOutput output;
-        private int healAMount;
+        private int healAmount;
     }
 }

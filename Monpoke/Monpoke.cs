@@ -13,6 +13,7 @@ namespace Monpoke
                 throw new ArgumentException("Monpoke must have 1 AP or greater", nameof(attackPower));
 
             this.Id = id;
+            this.originalHitPoints = hitPoints;
             this.hitPoints = hitPoints;
             this.attackPower = attackPower;
         }
@@ -39,7 +40,16 @@ namespace Monpoke
             victim.Damage(attackPower);
         }
 
+        public void Heal(int healAmount)
+        {
+            if (hitPoints + healAmount > originalHitPoints)
+                hitPoints = originalHitPoints;
+            else
+                hitPoints += healAmount;
+        }
+
         private int hitPoints;
         private int attackPower;
+        private int originalHitPoints;
     }
 }
